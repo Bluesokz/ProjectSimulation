@@ -9,8 +9,9 @@ class Tree{
   }
   
   
-  void iterar (float [] a,float [] b,int n ) {
+  void iterar (float [] a,float [] b,int n, boolean first ) {
   //We take a as initial point of branch and b as final point. a and b are vectors. We iterate by generating new brances who's initial point is atached to line between a and b, with less longitude than a-b line, and who's direction is rotated from a-b line.
+  
   if (n==0){
   //If we are at a final branch, we put some leaves or flowers in it 
      float [] h=new float [2];
@@ -18,22 +19,26 @@ class Tree{
      h[1]=b[1]-a[1];
      for (int e=0;e<round(random(10,40));e++){
        //This is for leaves
-       stroke(255);
-       strokeWeight(0);
+       stroke(58,95,11);
+       strokeWeight(4);
        point(b[0]+random(0,0.1)*h[0],HEIGHT-b[1]-random(0,0.1)*h[1]);
-     }
+     }/*
      for (int e=0;e<round(random(0,1));e++){
        //This for flowers
-       stroke(255,0,0);
-       strokeWeight(4);
+       stroke(255);
+       strokeWeight(1);
        point(b[0]+random(0,0.05)*h[0],HEIGHT-b[1]-random(0,0.05)*h[1]);
-     }   
+     }   */
   }
   else {
     //If we are not at final breanch, we need to iterate.
     //First draw current branch
     stroke(n*10, 0, 0);
-    strokeWeight(1);  
+    if(!first){
+      strokeWeight(1);
+    }else{
+        strokeWeight(3);
+    }
     line(a[0],HEIGHT-a[1],b[0],HEIGHT-b[1]);
     //And them calculating new set of branchs
     float [] h=new float [2];
@@ -55,7 +60,7 @@ class Tree{
        d[0]=c[0]+s*(cos(t)*h[0]+sin(t)*h[1]);
        d[1]=c[1]+s*(-sin(t)*h[0]+cos(t)*h[1]);
        //Each branch generates new ones or is the final branch
-       iterar(c,d,n-round(random(0.49,1)));
+       iterar(c,d,n-round(random(0.49,1)),false);
      }
     }
   }
