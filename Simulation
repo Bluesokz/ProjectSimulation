@@ -1,20 +1,20 @@
 
 ArrayList<Tree> trees = new ArrayList<Tree>();
 ArrayList<Tree> oldTrees = new ArrayList<Tree>();
-int WIDTH=1000;
-int HEIGHT=300; 
+int WIDTH=1200;
+int HEIGHT=400; 
 float [] a=new float [2];//We are going to use these 2 vectors to generate the Random L-System trees.
 float [] b=new float [2];
 int count=0;
 
 void setup() { 
-  for(int i=0; i<50; i++){
+  for(int i=0; i<30; i++){
     Tree t = new Tree(random(HEIGHT/10,HEIGHT/3));
     trees.add(t);
     oldTrees.add(t);
   }
   size(WIDTH,HEIGHT);
-  background(91);
+  background(230);
   stroke(0, 0, 0);
   strokeWeight(5);
   gen();
@@ -26,7 +26,7 @@ void draw(){
 }
 
 void gen(){
-  background(91);
+  background(230);
     stroke(0, 0, 0);
     strokeWeight(5);  
     line(0,HEIGHT-HEIGHT/10,WIDTH,HEIGHT-HEIGHT/10); //Just adding a base line to make it looks cool.
@@ -38,6 +38,6 @@ void gen(){
          b[0]=x;
          b[1]=a[1]+t.startH;
          int n=round(random(3,7));   
-         t.iterar(a,b,n); //To generate the rest of the tree we call this function wich is going to be called recursively
+         t.iterar(a,b,n,true); //To generate the rest of the tree we call this function wich is going to be called recursively
     }
 }
