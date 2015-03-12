@@ -1,5 +1,5 @@
 ArrayList<Tree> trees = new ArrayList<Tree>();
-//ArrayList<Tree> oldTrees = new ArrayList<Tree>();
+ArrayList<Tree> oldTrees = new ArrayList<Tree>();
 int WIDTH=1600;
 int HEIGHT=500; 
 float [] a=new float [2];
@@ -12,12 +12,12 @@ void setup() {
   rgb[1]=95;
   rgb[2]=11;
   for(int i=0; i<2; i++){
-    Tree t = new Tree(random(HEIGHT/10,HEIGHT/3),random(0+WIDTH/10,WIDTH-WIDTH/10), round(random(1,6)),round(random(10,40)), round(random(3,7)));
+    Tree t = new Tree(random(HEIGHT/10,HEIGHT/3),random(0+WIDTH/10,WIDTH-WIDTH/10), round(random(1,7)),round(random(10,40)), round(random(3,5)));
     trees.add(t);
-   // oldTrees.add(t);
+    oldTrees.add(t);
   }
   size(WIDTH,HEIGHT);
-  background(220,255,220);
+  background(200,220,255);
   stroke(0, 0, 0);
   strokeWeight(5);
   gen();
@@ -30,12 +30,30 @@ void draw(){
 
 void keyPressed(){
   if(keyCode == ENTER){
+   newGeneration();
    gen(); 
   }
 }
 
+void newGeneration(){
+  int count = 0;
+  for(int i = 0; i < oldTrees.size()-1; i++){
+    oldTrees.remove(i); 
+  }
+  for(Tree t: trees){
+    oldTrees.add(new Tree(t.startH,t.xPos,t.numBranches,t.leafCount,t.subBranch));
+  }
+  
+  for(int i = 0; i < trees.size()-1; i++){
+    trees.remove(i); 
+  }
+  for(Tree ot: oldTrees){
+    trees.add(new Tree(ot.startH,ot.xPos+20,ot.numBranches,ot.leafCount,ot.subBranch));
+  }
+}
+
 void gen(){
-  background(220,255,220);
+  background(200,220,255);
   stroke(0, 92, 9);
   
   fill(90, 52, 0);
@@ -45,7 +63,7 @@ void gen(){
          float x= t.xPos;
          a[0]=x;
          a[1]=HEIGHT/10;
-         b[0]=x;
+         b[0]=x+random(-5,5);
          b[1]=a[1]+t.startH;
          int n = t.subBranch;//round(random(3,7));   
          t.iterar(a,b,n,true,rgb); //To generate the rest of the tree we call this function wich is going to be called recursively
