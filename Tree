@@ -25,6 +25,8 @@ class Tree{
   green = rgb[1];
   blue = rgb[2];
   
+  int count = n-1;
+  
   if (n==0){
      float [] h=new float [2];
      h[0]=b[0]-a[0];
@@ -37,12 +39,9 @@ class Tree{
      }
   }
   else {
-    stroke(n*10, 0, 0);
-    if(!first){
-      strokeWeight(1);
-    }else{
-        strokeWeight(3);
-    }
+    stroke(0);
+    strokeWeight(n);
+
     line(a[0],HEIGHT-a[1],b[0],HEIGHT-b[1]);
     //And them calculating new set of branchs
     float [] h=new float [2];
@@ -53,11 +52,11 @@ class Tree{
     float [] c=new float [2];
     c[0]=b[0]-1/r*h[0];
     c[1]=b[1]-1/r*h[1];
-    float w=random(0,1);
     //Now we add several new branches to that point, each one less long than this one.
+    float w=random(0,1);
     for(int f=0;f<numBranches;f++)
     {
-      //The branched are rotated randomly
+      //The branches are rotated randomly
        float t=random(-w*PI/5-PI/8,w*PI/5+PI/8);
        float s=random(0.5,0.75);
        float [] d=new float [2];
